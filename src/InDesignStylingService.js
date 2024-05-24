@@ -1,5 +1,5 @@
 // src/InDesignStylingService.js
-const generateChatReq = require('./generateChatReq');
+const fetch = require('node-fetch');
 const applyStylesToInDesignDoc = require('./applyStylesToInDesignDoc');
 
 class InDesignStylingService {
@@ -8,14 +8,20 @@ class InDesignStylingService {
     }
 
     async analyzeContent(text) {
-        // Updated to interface with Google Gemini API using the provided apiKey
+        // Integrate Google Gemini API for content analysis
         const response = await fetch(`https://google-gemini-api.com/analyze?apiKey=${this.apiKey}&text=${encodeURIComponent(text)}`);
+        if (!response.ok) {
+            throw new Error('Failed to fetch styling instructions from Google Gemini API');
+        }
         const data = await response.json();
         return data.stylingInstructions;
     }
 
     applyStyles(doc, stylingInstructions) {
-        // Ensures correct interfacing with InDesign to apply styles based on instructions
+        // Ensure applyStyles method interfaces correctly with InDesign documents
+        if (!doc || !stylingInstructions) {
+            throw new Error('Document or styling instructions are missing');
+        }
         applyStylesToInDesignDoc(stylingInstructions, doc);
     }
 }

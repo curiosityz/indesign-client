@@ -1,4 +1,4 @@
-# This script automates the installation of all libraries, dependencies, and configurations necessary for interfacing with InDesign and Google Gemini.
+# This script automates the setup of dependencies for InDesign and Google Gemini integration
 
 import subprocess
 import sys
@@ -6,15 +6,13 @@ import sys
 def install(package):
     subprocess.check_call([sys.executable, "-m", "pip", "install", package])
 
-# List of libraries and dependencies to install
-dependencies = [
+# List of packages to install
+packages = [
     "requests",  # For making API calls to Google Gemini
     "PyInDesign",  # For interfacing with Adobe InDesign
-    # Add more dependencies as needed
 ]
 
-# Install each dependency
-for dependency in dependencies:
-    install(dependency)
+for package in packages:
+    install(package)
 
-print("All dependencies have been successfully installed.")
+print("Dependencies for InDesign and Google Gemini integration have been installed.")

@@ -1,23 +1,40 @@
 // src/exampleUsage.js
-const InDesignStylingService = require('./InDesignStylingService');
-const fs = require('fs');
+const express = require('express');
+const fetch = require('node-fetch');
 
-// Load the document text
-const documentText = fs.readFileSync('path/to/your/document.txt', 'utf8');
+const app = express();
+app.use(express.json());
 
-// Create an instance of InDesignStylingService
-const apiKey = 'YOUR_GOOGLE_GEMINI_API_KEY';
-const stylingService = new InDesignStylingService(apiKey);
+const PORT = process.env.PORT || 3000;
+const API_ENDPOINT = 'http://localhost:3000/applyStyles';
 
-// Analyze the content
-stylingService.analyzeContent(documentText).then(stylingInstructions => {
-    if (!stylingInstructions) return;
+app.post('/sendTextForStyling', async (req, res) => {
+    const { text } = req.body;
+    if (!text) {
+        return res.status(400).send({ error: 'Text is required.' });
+    }
 
-    // Load the InDesign document
-    const doc = app.activeDocument;
+    try {
+        const response = await fetch(API_ENDPOINT, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ text }),
+        });
 
-    // Apply styles to the document
-    stylingService.applyStyles(doc, stylingInstructions);
+        if (!response.ok) {
+            throw new Error('Failed to apply styles');
+        }
 
-    alert("Styles applied successfully!");
+        const stylingInstructions = await response.json();
+        return res.status(200).send(stylingInstructions);
+    } catch (error) {
+        console.error('Error sending text for styling:', error);
+        return res.status(500).send({ error: 'Internal server error.' });
+    }
+});
+
+app.listen(PORT, () => {
+    console.log(`Server listening on port ${PORT}`);
 });
