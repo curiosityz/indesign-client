@@ -77,8 +77,23 @@ stylingService.analyzeContent(documentText).then(stylingInstructions => {
     alert("Styles applied successfully!");
 });
 
+## Setup Process for Interfacing with InDesign and Google Gemini
 
+To fully integrate InDesign with Google Gemini for intelligent design styling, follow these steps:
 
+1. **Obtain Google Gemini API Key**:
+   - Sign up for Google Gemini and secure an API key.
+
+2. **Configure Environment**:
+   - Ensure your environment is set up to use the API key, typically through environment variables or configuration files.
+
+3. **Install Required Libraries**:
+   - Make sure all necessary libraries and dependencies for interfacing with InDesign and Google Gemini are installed.
+
+4. **Automate Setup**:
+   - Utilize scripts or automation tools to streamline the setup process, ensuring all components are correctly configured for use.
+
+For detailed instructions and additional configuration options, refer to the official documentation of InDesign and Google Gemini.
 
 BASED OFF OF = 
 
