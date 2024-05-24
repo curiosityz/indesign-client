@@ -1,4 +1,86 @@
-*OUR PURPOSE - By integrating the Gemini API via the customized LLMClient in Copilot Workspace, you can intelligently apply styles to your InDesign document, making nuanced decisions based on content analysis. This approach combines the power of machine learning with the automation capabilities of Adobe InDesign, streamlining your document formatting process..... BASED OFF OF = 
+*OUR PURPOSE - By integrating the Gemini API via the customized LLMClient in Copilot Workspace, you can intelligently apply styles to your InDesign document, making nuanced decisions based on content analysis. This approach combines the power of machine learning with the automation capabilities of Adobe InDesign, streamlining your document formatting process..... 
+
+# InDesign Styling Service
+
+## Google Gemini API Configuration
+
+1. **Get API Key**:
+   - Sign up for Google Gemini API and obtain an API key.
+
+2. **Set Up Environment Variable**:
+   - Create a `.env` file in the root of your project and add your API key:
+     ```env
+     GEMINI_API_KEY=your_api_key_here
+     ```
+
+3. **Install `dotenv` Package**:
+   - Install the `dotenv` package to load environment variables:
+     ```sh
+     npm install dotenv
+     ```
+
+4. **Load Environment Variables in Your Code**:
+   - At the top of your `generateChatReq.js` file, add:
+     ```javascript
+     require('dotenv').config();
+     ```
+
+## Using the InDesignStylingService
+
+### Analyzing Text and Applying Styles
+
+1. **Load Document Text**:
+   ```javascript
+   const fs = require('fs');
+   const documentText = fs.readFileSync('path/to/your/document.txt', 'utf8');
+Analyze Content:
+
+javascript
+Copy code
+const stylingService = new InDesignStylingService(apiKey);
+stylingService.analyzeContent(documentText).then(stylingInstructions => {
+    if (!stylingInstructions) return;
+    // Apply styles to InDesign document
+});
+Apply Styles to InDesign Document:
+
+javascript
+Copy code
+const doc = app.activeDocument;
+stylingService.applyStyles(doc, stylingInstructions);
+alert("Styles applied successfully!");
+Applying Styles to InDesign Documents
+Example Workflow:
+javascript
+Copy code
+// src/exampleUsage.js
+const InDesignStylingService = require('./InDesignStylingService');
+const fs = require('fs');
+
+// Load the document text
+const documentText = fs.readFileSync('path/to/your/document.txt', 'utf8');
+
+// Create an instance of InDesignStylingService
+const apiKey = 'GOOGLE_API_KEY';
+const stylingService = new InDesignStylingService(apiKey);
+
+// Analyze the content
+stylingService.analyzeContent(documentText).then(stylingInstructions => {
+    if (!stylingInstructions) return;
+
+    // Load the InDesign document
+    const doc = app.activeDocument;
+
+    // Apply styles to the document
+    stylingService.applyStyles(doc, stylingInstructions);
+
+    alert("Styles applied successfully!");
+});
+
+
+
+
+BASED OFF OF = 
 
 JS/TS library to make to easy to build with LLMs. Full support for various LLMs and VectorDBs, Agents, Function Calling, Chain-of-Thought, RAG, Semantic Router and more. Based on the popular Stanford DSP paper. Create and compose efficient prompts using prompt signatures. 🌵 🦙 🔥 ❤️ 🖖🏼
 
